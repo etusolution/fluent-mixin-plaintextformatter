@@ -1,5 +1,6 @@
 require 'fluent/config'
 require 'ltsv'
+require 'yajl'
 
 module Fluent
   module Mixin
@@ -94,7 +95,8 @@ module Fluent
         if @custom_attributes.nil?
           case @output_data_type
           when 'json'
-            record.to_json
+            # record.to_json
+            Yajl.dump(record)
           when 'ltsv'
             LTSV.dump(record)
           end
